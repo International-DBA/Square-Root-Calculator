@@ -1,0 +1,21 @@
+After creating the function, I tested it with the following script. 
+
+spool test_script
+set serveroutput on
+set echo on
+select square_root(-1) from dual;
+select square_root(0) from dual;
+select square_root(4,'blah') from dual;
+select square_root(number_input=>5,debug_on=>'Y') from dual
+/
+select square_root(4) from dual
+/
+select square_root(6.25) from dual
+/
+select square_root(1000) from dual
+/
+select square_root(123456789) from dual
+/
+select square_root(987654321) from dual
+/
+spool off
