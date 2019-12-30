@@ -1,0 +1,81 @@
+Here is the source code of the function: 
+
+create or replace function square_root
+
+(number_input number,
+
+  debug_on varchar2 := 'N')
+
+return number
+
+as
+
+sr1     number := 1;
+
+sr2     number;
+
+square  number;
+
+pcd     number := 1;
+
+counter number := 0;
+
+begin
+
+if number_input < 0
+
+  then raise_application_error(-20000,'Negative values not allowed');
+
+end if;
+
+if number_input = 0
+
+  then return 0;
+
+end if;
+
+if (debug_on != 'Y') and (debug_on != 'N')
+
+  then raise_application_error(-20001,'debug_on must be Y or N');
+
+end if;
+
+while abs (pcd) > 0.000001
+
+  loop
+
+  sr2 := number_input / sr1;
+
+  sr1 := (sr1 + sr2) / 2;
+
+  square := sr1 * sr1;
+
+  pcd    := (number_input - square) / number_input * 100;
+
+  counter := counter + 1;
+
+  if debug_on = 'Y'
+
+   then
+
+   dbms_output.put_line ('counter = '||counter);
+
+   dbms_output.put_line ('number_input = '||number_input);
+
+   dbms_output.put_line ('sr1 = '||sr1);
+
+   dbms_output.put_line ('square = '||square);
+
+   dbms_output.put_line ('pcd = '||pcd);
+
+   dbms_output.put_line ('**********');
+
+  end if;
+
+  end loop;
+
+  return sr1;
+
+end;
+
+/
